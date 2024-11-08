@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="ramka">
+    <div class="naglowek">
+      <div class="obraz">
+        <div class="napis">
+        <span id="text" class="typewriter"></span>
+        <em id="text2" class="typewriter"></em>
+    </div>
+        <header class="header-container">
+          <div class="contact-info">
+              <span class="contact-item"><i class="fas fa-phone"></i> SPRZEDAŻ +48 123 123 123</span>
+              <span class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:biuro@kefal.pl">BIURO@123.PL</a></span>
+          </div>
+        </header>
+        <div class="topnav">
+          <div class="nav-container">
+            <div class="logo">
+                <a><img src="{% static 'kefal-logo.png' %}" alt="KEFAL Logo" ></div></a>
+            <ul class="menu">
+                <li><a href="#products">PRODUKTY</a></li>
+                <li><a href="#about">O FIRMIE</a></li>
+                <li><a href="#downloads">DO POBRANIA</a></li>
+                <li><a href="#partner-zone">STREFA PARTNERA</a></li>
+                <li><a href="#news">AKTUALNOŚCI</a></li>
+                <li><a href="#contact">KONTAKT</a></li>
+              
+            </ul>
+            <div class="search-icon">
+              <a href="{% url 'login'%}"><img src="{% static 'search-icon.png' %}" >Logowanie</a>
+          </div>
+        </div>
+          
+        </div>
+      </div>
+     
+    </div>
+      <!-- koniec obrazku  --> 
+       <div class="bar">
+        <div class="red-line"></div>
+       </div>
+    </div>
+    <div class="image-grid">
+      <div class="image-item" id="a"><div class="overlay"><span>BUDŻET DOMOWY</span></div></div>
+      <div class="image-item span-col" id="b"><div class="overlay"><span>APLIKACJA</span></div></div>
+      <div class="image-item span-row" id="c"><div class="overlay"></div></div>
+      <div class="image-item" id="d"><div class="overlay"><span>ŁATWA OBSŁUGA</span></div></div>
+      <div class="image-item" id="e"><div class="overlay"><span>NIEZAWODNY</span></div></div>
+      <div class="image-item" id="f"><div class="overlay"><span>KONKURENCYJNY</span></div></div>
+      <div class="image-item" id="g"><div class="overlay"><span>BEZPIECZNY</span></div></div>
+  </div>
+  <div class="bar">
+    <div class="red-line"></div>
+   </div>
+   <div class="artykul">
+    <div class="zdj-artykul">
+        <div class="zdje"></div>
+    </div>
+    <div class="continer-art">
+        <h1>Nasza Aplikacja</h1>
+        <p>Aplikacje do zarządzania budżetem oferują szeroki wachlarz funkcji. 
+          Użytkownicy mogą wprowadzać swoje przychody, przypisywać wydatki do 
+          różnych kategorii (np. jedzenie, mieszkanie, transport) oraz analizować,
+           na co najczęściej wydają pieniądze. Wiele z nich automatycznie synchronizuje się 
+           z kontami bankowymi, co pozwala na bieżące monitorowanie finansów.
+          </p>
+    </div>
+  </div>
+  </div>
+  <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

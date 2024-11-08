@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktualny stan konta</title>
+    <!-- Dodanie biblioteki Chart.js -->
+     <style>
+        body{
+            margin:0;
+            padding:0;
+            background-color: #e7dcd2;
+            font-family: 'Poppins',sans-serif;
+        }
+.wykres{
+    
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+    align-items: center; /* Wyrównuje elementy na środku w pionie */
+    
+}
+.vertical-menu {
+    position: fixed;
+    width: 12%;
+    height: 100%;
+    border-right: 3px solid #ed3135;
+    background-color: white;
+    z-index: 1;
+}
+.header{
+    display: flex;
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+    align-items: center; /* Wyrównuje elementy na środku w pionie */
+    gap: 20px; 
+   
+    
+}
+
+.wykres2{
+    display: flex;
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+     /* Wyrównuje elementy na środku w pionie */
+    gap: 20px; 
+}
+.wykres3{
+    display: flex;
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+     /* Wyrównuje elementy na środku w pionie */
+    gap: 20px; 
+    
+}
+.Budzet{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 29%;
+    background-color: white;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+ 
+}
+.Budzet2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 29%;;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ebc7a8;
+    padding: 10px;
+    text-transform:uppercase
+}
+.sidebar {
+    width: 90%;
+   
+    padding: 10px;
+    border-radius: 8px;
+    
+}
+
+.menu-item {
+    
+    font-size: 16px;
+    display: block;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #e7dcd2;
+    
+}
+a#menu-item{
+    padding: 10px;
+    margin: 10px 0;
+}
+.menu-title:hover {
+    background-color: #ed3135;
+}
+
+.menu-title {
+    background-color: #e7dcd2;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.submenu {
+    display: none;
+    background-color:#f5e9dd;
+    
+}
+.submenu:last-child {
+    display: none;
+    border-radius: 0 0 5px 5px;
+    background-color: #f5e9dd;
+}
+a.menu-title {
+    padding: 10px;
+    
+}
+.submenu a {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    color: #555;
+    font-size: 14px;
+    text-decoration: none;
+    padding-left: 10px;
+    
+}
+.logout{
+    bottom:0;
+    left:0;
+    position: absolute;
+    padding:10px;
+    width:91%;
+    text-align:center;
+    text-decoration:none;
+    color: black;
+}
+.submenu a:hover {
+    background-color: #e0e1e9;
+    border-radius: 5px;
+}
+
+.icon {
+    margin-right: 8px;
+}
+
+.arrow {
+    font-size: 12px;
+}
+.Main{
+    padding: 0 30%;
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+    align-items: center; 
+    margin-left: 12%;
+    padding-top: 4%;
+}
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+    .budget-container {
+      
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .budget-header {
+        width:100%;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #3a5a9a;
+    }
+    .budget-header a {
+        color: #3a5a9a;
+        text-decoration: none;
+        margin-left: 15px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f1f1f1;
+    }
+    .income-row {
+        color: green;
+        font-weight: bold;
+    }
+    .expense-category {
+        color: red;
+        font-weight: bold;
+    }
+    .debt-payment {
+        background-color: #f7f7f7;
+        color: #666;
+    }
+    .balance-positive {
+        color: green;
+    }
+    .year-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            width:87%;
+            margin-bottom: 20px;
+            padding-left: calc(12% + 10px);;
+            position:fixed;
+           
+        }
+        .year-bar .year, .year-bar .month {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin: 0 2px;
+            cursor: pointer;
+            color: #333;
+            text-align: center;
+            min-width: 40px;
+        }
+        .year-bar .selected {
+            background-color: #e8512b;
+            color: white;
+            font-weight: bold;
+        }
+        .year:hover{
+            background-color: #e8512b;
+        }
+        .year .selected{
+            background-color: #e8512b;
+        }
+        .month:hover{
+            background-color: #e8512b;
+        }
+        .budzet-name{
+            padding: 10px;
+        }
+        .container {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 96%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #ed3135;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e8512b;
+        }
+     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="vertical-menu">
+        <div class="sidebar">
+            <div class="menu-item">
+                <a href="{% url 'kategorie_view' %}" class="menu-title" style="border-radius: 8px;" onclick="toggleDropdown()">Budżet </a>
+            </div>
+          
+            <a href="{% url 'roczny_wykres' %}" class="menu-item"  id="menu-item">
+                 Raporty
+            </a>
+            <a href="{% url 'dodaj_kategorie' %}"  class="menu-item"  id="menu-item">
+               Zaplanuj Budżet dla Kategori
+            </a>
+            <a href="{% url 'dodaj_podkategorie' %}"  class="menu-item"  id="menu-item">
+                Zaplanuj Wpływ
+            </a>
+            <a href="{% url 'logout' %}"  class="logout"  id="logout">
+                Wyloguj
+            </a>
+        </div>
+    </div>
+
+    <div class="Main">
+
+
+<div class="budget-container">
+    <h2>Zaplanuj Budżet dla Kategori</h2>
+    <div class="budget-header">
+        
+       
+        <div class="form-group">
+    
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Zapisz</button>
+            </form>
+        </div>
+</div>
+
+</div>
+</div>
+    <script>
+        function calculatePlanSums() {
+            let greenSum = 0; // Suma planów zielonych
+            let redSum = 0;   // Suma planów czerwonych
+            
+            const rows = document.querySelectorAll("table tbody tr"); // Wybierz wszystkie wiersze w tabeli
+            
+            rows.forEach(row => {
+                const planCell = row.cells[1]; // Zakładamy, że kolumna "Plan" to druga kolumna (indeks 1)
+                if (planCell) {
+                    const planValue = parseFloat(planCell.textContent.replace(' zł', '').replace(',', '.'));
+                    if (!isNaN(planValue)) { // Sprawdzenie, czy wartość jest liczbą
+                        if (row.classList.contains('income-row')) { // Sprawdzenie koloru zielonego
+                            greenSum += planValue; // Dodaj do sumy zielonych
+                        } else if (row.classList.contains('expense-category')) { // Sprawdzenie koloru czerwonego
+                            redSum += planValue; // Dodaj do sumy czerwonych
+                        }
+                    }
+                }
+            });
+        
+            // Ustal cel (cz) jako sumę planów zielonych
+            const cz = greenSum; 
+            // Oblicz procent czerwonych w stosunku do celu (cz)
+            const redPercentage = cz > 0 ? (redSum / cz) * 100 : 0; // Oblicz procent czerwonych
+        
+            return { cz, redSum, redPercentage }; // Zwróć obiekt z celem, sumą czerwonych i procentem
+        }
+        
+        // Przykład wywołania funkcji i wyświetlenia wyników w konsoli
+        document.addEventListener("DOMContentLoaded", function() {
+            const { cz, redSum, redPercentage } = calculatePlanSums(); // Oblicz sumy planów
+            console.log("Cel (cz):", cz.toFixed(2) + " zł");
+            console.log("Suma planów czerwonych:", redSum.toFixed(2) + " zł");
+            console.log("Czerwone jako procent celu:", redPercentage.toFixed(2) + "%");
+        
+            // Aktualizacja wykresu
+            const ctx1 = document.getElementById('pieChart1').getContext('2d');
+            const pieChart1 = new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: ['Budżet', 'Wydatki'],
+                    datasets: [{
+                        label: 'Suma planów',
+                        data: [cz - redSum, redSum], // Cel minus suma czerwonych, a następnie suma czerwonych
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 1)', // Cel (cz) - zielony
+                            'rgba(255, 99, 132, 1)'  // Czerwony
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+        });
+        
+        
+
+        // Drugi wykres
+        function calculateExpenseData() {
+            let target = 0; // Cel na podstawie planów
+            let realization = 0; // Realizacja na podstawie wydatków
+            
+            const rows = document.querySelectorAll("table tbody tr"); // Wybierz wszystkie wiersze w tabeli
+        
+            rows.forEach(row => {
+                if (row.classList.contains('expense-category')) { // Sprawdzenie, czy wiersz dotyczy wydatków
+                    const planCell = row.cells[1]; // Zakładamy, że kolumna "Plan" to druga kolumna (indeks 1)
+                    const realizationCell = row.cells[2]; // Zakładamy, że kolumna "Realizacja" to trzecia kolumna (indeks 2)
+        
+                    if (planCell) {
+                        const planValue = parseFloat(planCell.textContent.replace(' zł', '').replace(',', '.'));
+                        if (!isNaN(planValue)) {
+                            target += planValue; // Dodaj do celu
+                        }
+                    }
+                    
+                    if (realizationCell) {
+                        const realizationValue = parseFloat(realizationCell.textContent.replace(' zł', '').replace(',', '.'));
+                        if (!isNaN(realizationValue)) {
+                            realization += realizationValue; // Dodaj do realizacji
+                        }
+                    }
+                }
+            });
+        
+            return { target, realization }; // Zwróć obiekt z celem i realizacją
+        }
+        
+        // Przykład wywołania funkcji i wyświetlenia wyników w konsoli
+        document.addEventListener("DOMContentLoaded", function() {
+            const { target, realization } = calculateExpenseData(); // Oblicz sumy planów i realizacji
+            console.log("Cel (target):", target.toFixed(2) + " zł");
+            console.log("Realizacja:", realization.toFixed(2) + " zł");
+        
+            // Oblicz procent realizacji w stosunku do celu
+            const realizationPercentage = target > 0 ? (realization / target) * 100 : 0;
+        
+            // Aktualizacja wykresu
+            const ctx2 = document.getElementById('pieChart2').getContext('2d');
+            const pieChart2 = new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: ['Realizacja', 'Do zrealizowania'],
+                    datasets: [{
+                        label: 'Wykres 2',
+                        data: [realization, target - realization], // Realizacja oraz różnica między celem a realizacją
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 1)', // Czerwony - realizacja
+                            'rgba(75, 192, 192, 1)'  // Zielony - do zrealizowania
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+        });
+        // Trzeci wykres
+        function calculateExpenseData() {
+            let target = 0; // Cel na podstawie planów
+            let realization = 0; // Realizacja na podstawie wydatków
+            
+            const rows = document.querySelectorAll("table tbody tr"); // Wybierz wszystkie wiersze w tabeli
+        
+            rows.forEach(row => {
+                if (row.classList.contains('income-row')) { // Sprawdzenie, czy wiersz dotyczy wydatków
+                    const planCell = row.cells[1]; // Zakładamy, że kolumna "Plan" to druga kolumna (indeks 1)
+                    const realizationCell = row.cells[2]; // Zakładamy, że kolumna "Realizacja" to trzecia kolumna (indeks 2)
+        
+                    if (planCell) {
+                        const planValue = parseFloat(planCell.textContent.replace(' zł', '').replace(',', '.'));
+                        if (!isNaN(planValue)) {
+                            target += planValue; // Dodaj do celu
+                        }
+                    }
+                    
+                    if (realizationCell) {
+                        const realizationValue = parseFloat(realizationCell.textContent.replace(' zł', '').replace(',', '.'));
+                        if (!isNaN(realizationValue)) {
+                            realization += realizationValue; // Dodaj do realizacji
+                        }
+                    }
+                }
+            });
+        
+            return { target, realization }; // Zwróć obiekt z celem i realizacją
+        }
+        
+        // Przykład wywołania funkcji i wyświetlenia wyników w konsoli
+        document.addEventListener("DOMContentLoaded", function() {
+            const { target, realization } = calculateExpenseData(); // Oblicz sumy planów i realizacji
+            console.log("Cel (target):", target.toFixed(2) + " zł");
+            console.log("Realizacja:", realization.toFixed(2) + " zł");
+        
+            // Oblicz procent realizacji w stosunku do celu
+            const realizationPercentage = target > 0 ? (realization / target) * 100 : 0;
+        
+            // Aktualizacja wykresu
+            const ctx2 = document.getElementById('pieChart3').getContext('2d');
+            const pieChart2 = new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: ['Realizacja', 'Do zrealizowania'],
+                    datasets: [{
+                        label: 'Wykres 2',
+                        data: [realization, target - realization], // Realizacja oraz różnica między celem a realizacją
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 1)', // Czerwony - realizacja
+                            'rgba(75, 192, 192, 1)'  // Zielony - do zrealizowania
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+        });
+        function toggleDropdown() {
+    const submenu = document.querySelector('.submenu');
+    const title = document.querySelector('.menu-title');
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    title.style.borderRadius = title.style.borderRadius === "8px" ? "5px 5px 0 0" : "8px";
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            const yearElement = document.getElementById("year-2024");
+            const months = document.querySelectorAll(".month");
+            const selectedYear = 2024;  // Rok, którego dotyczy filtr
+        
+            // Funkcja do pobierania transakcji na podstawie miesiąca
+            function fetchTransactions(month) {
+                // Przygotowanie parametru miesiąca
+                const monthParam = month ? `&month=${month}` : '';  // Ustawienie parametru miesiąca, jeśli jest dostępny
+                fetch(`/filter-transactions/?year=${selectedYear}${monthParam}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tbody = document.querySelector("table tbody");
+                        tbody.innerHTML = ""; // Czyszczenie tabeli
+                        data.transactions.forEach(transaction => {
+                            tbody.innerHTML += `
+                                <tr class="${transaction.zysk ? 'income-row' : 'expense-category'}">
+                                    <td>${transaction.nazwa}</td>
+                                    <td>${transaction.plan.toFixed(2)} zł</td>
+                                    <td>${transaction.realizacja.toFixed(2)} zł</td>
+                                    <td>${transaction.saldo.toFixed(2)} zł</td>
+                                </tr>
+                            `;
+                        });
+                    })
+                    .catch(error => console.error("Błąd przy pobieraniu transakcji:", error));
+            }
+        
+            // Obsługa kliknięcia w rok 2024
+            yearElement.addEventListener("click", function() {
+                fetchTransactions(null);  // Zmiana w tej linii - aby pobrać wszystkie transakcje bez miesiąca
+            });
+        
+            // Obsługa kliknięcia w miesiące
+            months.forEach(month => {
+                month.addEventListener("click", function() {
+                    // Zmiana wybranego miesiąca na 'selected'
+                    months.forEach(m => m.classList.remove("selected"));
+                    month.classList.add("selected");
+        
+                    const selectedMonth = month.dataset.month;  // Pobranie miesiąca z atrybutu data-month
+                    fetchTransactions(selectedMonth);
+                });
+            });
+        });
+        function filterCategoriesByDate(year, month = null) {
+            // Wysyłamy zapytanie do backendu
+            fetch(`/filter-categories/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),  // Token CSRF
+                },
+                body: JSON.stringify({ year: year, month: month }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                displayCategories(data.categories);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+        // Funkcja do wyświetlania kategorii w HTML
+        function displayCategories(categories) {
+            const categoryDisplay = document.getElementById('category-display');
+            categoryDisplay.innerHTML = '';  // Czyszczenie poprzednich wyników
+        
+            if (categories.length > 0) {
+                categories.forEach(category => {
+                    const categoryElement = document.createElement('div');
+                    categoryElement.classList.add('category');
+                    categoryElement.innerHTML = `
+                        <h3>${category.nazwa}</h3>
+                        <p>Plan: ${category.plan} zł</p>
+                        <p>Realizacja: ${category.realizacja} zł</p>
+                        <p>Saldo: ${category.saldo} zł</p>
+                    `;
+                    categoryDisplay.appendChild(categoryElement);
+                });
+            } else {
+                categoryDisplay.innerHTML = '<p>Brak kategorii dla wybranego miesiąca lub roku.</p>';
+            }
+        }
+        
+        // Funkcja pomocnicza do uzyskania tokena CSRF (jeśli używasz Django)
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+    </script>
+</body>
+</html>

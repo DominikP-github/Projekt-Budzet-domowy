@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktualny stan konta</title>
+    <!-- Dodanie biblioteki Chart.js -->
+     <style>
+        body{
+            margin:0;
+            padding:0;
+            background-color: #e7dcd2;
+            font-family: 'Poppins',sans-serif;
+        }
+.wykres{
+    
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+    align-items: center; /* Wyrównuje elementy na środku w pionie */
+    
+}
+.vertical-menu {
+    position: fixed;
+    width: 12%;
+    height: 100%;
+    border-right: 3px solid #ed3135;
+    background-color: white;
+    z-index: 1;
+}
+.header{
+    display: flex;
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+    align-items: center; /* Wyrównuje elementy na środku w pionie */
+    gap: 20px; 
+   
+    
+}
+
+.wykres2{
+    display: flex;
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+     /* Wyrównuje elementy na środku w pionie */
+    gap: 20px; 
+}
+.wykres3{
+    display: flex;
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+     /* Wyrównuje elementy na środku w pionie */
+    gap: 20px; 
+    
+}
+.Budzet{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 29%;
+    background-color: white;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+ 
+}
+.Budzet2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 29%;;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ebc7a8;
+    padding: 10px;
+    text-transform:uppercase
+}
+.sidebar {
+    width: 90%;
+   
+    padding: 10px;
+    border-radius: 8px;
+    
+}
+
+.menu-item {
+    
+    font-size: 16px;
+    display: block;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #e7dcd2;
+    
+}
+a#menu-item{
+    padding: 10px;
+    margin: 10px 0;
+}
+.menu-title:hover {
+    background-color: #ed3135;
+}
+
+.menu-title {
+    background-color: #e7dcd2;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.submenu {
+    display: none;
+    background-color:#f5e9dd;
+    
+}
+.submenu:last-child {
+    display: none;
+    border-radius: 0 0 5px 5px;
+    background-color: #f5e9dd;
+}
+a.menu-title {
+    padding: 10px;
+    
+}
+.submenu a {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    color: #555;
+    font-size: 14px;
+    text-decoration: none;
+    padding-left: 10px;
+    
+}
+.logout{
+    bottom:0;
+    left:0;
+    position: absolute;
+    padding:10px;
+    width:91%;
+    text-align:center;
+    text-decoration:none;
+    color: black;
+}
+.submenu a:hover {
+    background-color: #e0e1e9;
+    border-radius: 5px;
+}
+
+.icon {
+    margin-right: 8px;
+}
+
+.arrow {
+    font-size: 12px;
+}
+.Main{
+    padding: 0 10%;
+    justify-content: center; /* Wyrównuje elementy na środku w poziomie */
+    align-items: center; 
+    margin-left: 12%;
+    padding-top: 4%;
+}
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.budget-container {   
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.budget-header {
+  width:100%;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #3a5a9a;
+}
+.budget-header a {
+  color: #3a5a9a;
+  text-decoration: none;
+  margin-left: 15px;
+}
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f1f1f1;
+    }
+    .income-row {
+        color: green;
+        font-weight: bold;
+    }
+    .expense-category {
+        color: red;
+        font-weight: bold;
+    }
+    .debt-payment {
+        background-color: #f7f7f7;
+        color: #666;
+    }
+    .balance-positive {
+        color: green;
+    }
+    .year-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            width:87%;
+           
+            padding-left: calc(12% + 10px);;
+            position:fixed;
+           
+        }
+        .year-bar .year, .year-bar .month {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin: 0 2px;
+            cursor: pointer;
+            color: #333;
+            text-align: center;
+            min-width: 40px;
+        }
+        .year-bar .selected {
+            background-color: #e8512b;
+            color: white;
+            font-weight: bold;
+        }
+        .year:hover{
+            background-color: #e8512b;
+        }
+        .year .selected{
+            background-color: #e8512b;
+        }
+        .month:hover{
+            background-color: #e8512b;
+        }
+        .budzet-name{
+            padding: 10px;
+        }
+        .container {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            text-align: center;
+            color: #333;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 96%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #ed3135;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e8512b;
+        }
+     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+        
+
+<body>
+    <div class="vertical-menu">
+        <div class="sidebar">
+            <div class="menu-item">
+                <a href="{% url 'kategorie_view' %}" class="menu-title" style="border-radius: 8px;" onclick="toggleDropdown()">Budżet </a>
+            </div>
+          
+            <a href="{% url 'roczny_wykres' %}" class="menu-item"  id="menu-item">
+                 Raporty
+            </a>
+            <a href="{% url 'dodaj_kategorie' %}"  class="menu-item"  id="menu-item">
+               Zaplanuj Budżet dla Kategori
+            </a>
+            <a href="{% url 'dodaj_podkategorie' %}"  class="menu-item"  id="menu-item">
+                Zaplanuj Wpływ
+            </a>
+            <a href="{% url 'logout' %}"  class="logout"  id="logout">
+                Wyloguj
+            </a>
+        </div>
+    </div>
+<div class="Main">
+  <div class="budget-container">
+    <h1>Roczny Wykres Plan vs Realizacja</h1>
+      <div class="budget-header">
+            
+           
+
+    
+    <canvas id="rocznyWykres" width="800" height="400"></canvas>
+    
+    <script>
+        // Dane z backendu Django (przesyłane do szablonu)
+        const miesiace = {{ miesiace|safe }};
+        const plany = {{ plany|safe }};
+        const realizacje = {{ realizacje|safe }};
+        
+        // Lista nazw miesięcy
+        const nazwyMiesiecy = [
+            'Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec',
+            'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'
+        ];
+
+        // Konfiguracja wykresu słupkowego
+        const ctx = document.getElementById('rocznyWykres').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: miesiace.map(m => nazwyMiesiecy[m - 1]),  // Zamiana numeru miesiąca na nazwę
+                datasets: [{
+                    label: 'Plan',
+                    data: plany,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Realizacja',
+                    data: realizacje,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
