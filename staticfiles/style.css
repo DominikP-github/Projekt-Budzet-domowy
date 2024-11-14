@@ -1,0 +1,362 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+}
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* This helps to push the elements apart */
+    background-color: white;
+  
+    height: 100px;
+    margin: 0 4rem;
+    padding: 0 16px;
+}
+
+.logo img {
+   
+    max-height: 45px; /* Adjust as per your image height */
+    margin-right: 32px;
+    border-style: none;
+    font-style: italic;
+    vertical-align: middle;
+    box-sizing: inherit;
+}
+.logo {
+    
+    height: auto; /* Adjust as per your image height */
+ 
+    
+ 
+}
+.menu {
+    list-style-type: none;
+    display: flex;
+ 
+    flex-grow: 1; /* Allows the menu to take up available space */
+    
+}
+
+.menu li {
+    display: inline;
+}
+
+.menu li a {
+    color: #2f438a;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .875rem;
+    line-height: 1.2;
+    display: inline-block;
+    padding: 7px 16px;
+    position: relative;
+    text-decoration: none;
+   
+}
+
+.menu li a:hover {
+    text-decoration: underline;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+}
+.search-icon:hover {
+    text-decoration: underline;
+}
+.search-icon img {
+    height: 25px; /* Adjust as per your search icon height */
+}
+
+.header {
+    text-align: center;  
+    height: 3.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color:white;
+}
+div.naglowek {
+    position: relative;
+    padding-top:46.5%;
+    
+} 
+  
+@keyframes przesunWdol {
+    0% {
+      background-position: center top; /* Początek od górnej krawędzi obrazu */
+    }
+    100% {
+      background-position: center center; /* Koniec na środku obrazu */
+    }
+  }
+  
+  div.obraz {
+    overflow: hidden;
+    background-size: cover;
+    background-image: url('Kefal.jpeg'); /* Ustawienie tła */
+    background-position: center top;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-bottom: 32px solid #ed3135;
+    animation: przesunWdol 20s linear forwards; /* Czas trwania animacji, dopasuj do potrzeb */
+  }
+
+div.opis {
+    position: relative;
+    padding-top:10%;
+    
+} 
+div.ramka {
+    position: relative;
+    padding: 8px;
+} 
+div.napis {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translate(0, -50%);
+    color: #fff;
+    text-align: center;
+    z-index: 20;
+    font-size: 3vw;
+    font-weight: 900;
+}
+
+.typewriter {
+    overflow: hidden; /* Ukryj nadmiar tekstu */
+    white-space: nowrap; /* Nie łam tekstu */
+  
+    width: fit-content;
+    animation: typing 5s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+@keyframes blink-caret {
+    from, to { border-color: transparent; } /* Zmienność koloru kursora */
+    50% { border-color: orange; } /* Kolor migającego kursora */
+}
+
+
+div.napis em{
+    font-style: normal;
+    font-family: "Cedarville Cursive", cursive;
+    font-size: 2em;
+    font-weight: 400;
+    
+}
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Dla równomiernego rozłożenia elementów wewnątrz kontenera */
+    align-items: center;
+    padding: 10px 20px;
+    color: white;
+    height: 60px;
+    margin-left: auto; /* Automatyczne przesunięcie kontenera w prawo */
+}
+
+.contact-info {
+    display: flex;
+    gap: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+}
+
+.contact-item i {
+    margin-right: 5px;
+}
+
+.contact-item a {
+    color: white;
+    text-decoration: none;
+}
+
+.search-icon img {
+    height: 25px; /* Adjust as per your search icon height */
+    margin: 5px;
+}
+.search-icon a{
+    color: red;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .875rem;
+    line-height: 1.2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 16px;
+    position: relative;
+    text-decoration: none;
+}
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 300px);
+    grid-gap: 32px;
+    padding: 0 32px;
+    margin: 0 74px;
+}
+
+.image-item {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Elementy są domyślnie niewidoczne */
+    transform: translateY(100%); /* Ustawienie elementów poniżej */
+    transition: opacity 0.5s, transform 0.5s; /* Ustawienie przejścia dla animacji */
+}
+
+/* Ustawienia tła */
+.image-item#a {
+    background-image: url('image1.jpg');
+}
+
+.image-item#d {
+    background-image: url('image2.png');
+}
+.image-item#e {
+    background-image: url('image5.jpg');
+}
+.image-item#f {
+    background-image: url('image6.jpg');
+}
+.image-item#g {
+    background-image: url('image7.jpeg');
+}
+
+.span-col {
+    grid-column: 2 / 4;
+    background-image: url('image3.jpg');
+}
+
+.span-row {
+    grid-row: 2 / 4;
+    background-image: url('image4.jpg');
+}
+
+.image-main-grid {
+    padding-right: 32px;
+    padding-left: 32px;
+    margin-right: 74px;
+    margin-left: 74px;
+}
+
+.bar{
+    padding: 32px 0;
+}
+.red-line{
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #ed3135;
+    margin: 0 auto;
+}
+.overlay {
+    
+    background-color: rgba(0, 20, 50, 0.8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    color: white;
+    font-size: 30px;
+    height: 100%;
+    background-color: rgb(183,106,15,0.8);
+    
+}
+.overlay span {
+    max-width: 70%;
+    font-weight: bold;
+}
+.O-Aplikacji{
+    text-align: center;
+    text-transform: uppercase;
+    color: #ed3135;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.2;
+    padding: 10px;
+    margin:20px;
+}
+.O-Aplikacji span{
+    color:#f09c10
+}
+
+@keyframes bounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.artykul {
+    display: flex;
+    background-color: #ed3135;
+    margin: 8px 108px;
+    max-width: 1700px;
+    opacity: 0; /* Ustawiamy domyślnie na niewidoczny */
+    transition: opacity 0.5s ease; /* Płynne przejście do widoczności */
+}
+
+.artykul.visible {
+    animation: bounce 1s ease; /* Dodajemy animację bounce */
+    opacity: 1; /* Ustawiamy na widoczny */
+}
+
+.zdj-artykul {
+    width: 50%;
+    height: auto;
+}
+
+.zdje {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-image: url('aplikacja.jpg');
+}
+
+.continer-art {
+    padding: 0 32px;
+    width: 50%;
+    color: white;
+    margin: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+p {
+    font-size: 16px;
+    margin: 0;
+    flex-wrap: wrap;
+}
