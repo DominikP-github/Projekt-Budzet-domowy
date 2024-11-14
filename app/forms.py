@@ -13,7 +13,7 @@ class KategoriaForm(forms.ModelForm):
 class PodkategoriaForm(forms.ModelForm):
     class Meta:
         model = tranzakcje
-        fields = ['nazwa', 'plan', 'realizacja', 'saldo', 'data', 'kategoria','jednorazowa']
+        fields = ['nazwa', 'plan', 'realizacja', 'data', 'kategoria','jednorazowa']
         widgets = {
             'data': forms.DateInput(attrs={'type': 'date'}),  # Używamy widgetu 'date' do wyboru daty
         }
@@ -29,7 +29,7 @@ class KategoriaForm2(forms.ModelForm):
 class KategoriaForm3(forms.ModelForm):
     class Meta:
         model = tranzakcje
-        fields = ['nazwa', 'plan', 'realizacja', 'saldo', 'data', 'kategoria']  # Pola, które chcesz edytować w formularzu
+        fields = ['nazwa', 'plan', 'realizacja', 'data', 'kategoria']  # Pola, które chcesz edytować w formularzu
         widgets = {
             'data': forms.DateInput(attrs={'type': 'date'}),  # Ustawienie widgetu dla daty
         }

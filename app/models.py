@@ -36,7 +36,7 @@ class tranzakcje(models.Model):
     realizacja = models.FloatField()
     saldo = models.FloatField()
     data = models.DateField(default=timezone.now)
-    jednorazowa = models.BooleanField(default=True)
+    jednorazowa = models.BooleanField()
     def __str__(self):
         return f"{self.nazwa} - {self.kategoria.nazwa} - {self.user.username}"
 
@@ -47,7 +47,11 @@ class tranzakcje(models.Model):
         return self.data.month  # Pobieramy miesiąc z daty
 
     def save(self, *args, **kwargs):
-        if self.data <= timezone.now().date():
-             if self.data== False:  # Sprawdź, czy data transakcji jest dzisiejsza
-                self.realizacja = self.plan  # Zaktualizuj realizację na plan
-        super().save(*args, **kwargs)  # Zapisz obiekt do bazy danych
+        # Ensure saldo is calculated as plan - realizacja before saving
+        self.saldo = self.plan - self.realizacja
+        
+        # Update realizacja to match plan if the transaction date is today and it's a one-time transaction
+        if self.data == timezone.now().date() and self.jednorazowa:
+            self.realizacja = self.plan
+        
+        super().save(*args, **kwargs)  # Save the object to the database

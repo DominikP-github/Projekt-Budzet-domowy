@@ -369,17 +369,14 @@ a.menu-title {
                 <th>Plan</th>
                 <th>Realizacja</th>
                 <th>Saldo</th>
-                <th>Akcje</th>  <!-- Kolumna na przyciski akcji -->
+                <th>Akcje</th>  <!-- Column for action buttons -->
             </tr>
         </thead>
         <tbody>
             {% for kategoria in kategorie %}
             <tr class="category {% if kategoria.zysk %} income-row {% else %} expense-category {% endif %}" 
                 data-month="{{ kategoria.miesiac }}" onclick="toggleSubcategories('{{ kategoria.id }}')">
-                <td>{{ kategoria.nazwa }}<span class="arrow">▼</span> 
-                   
-                  
-                </td>
+                <td>{{ kategoria.nazwa }}<span class="arrow">▼</span></td>
                 <td>{{ kategoria.plan|floatformat:2 }} zł</td>
                 <td>{{ kategoria.realizacja|floatformat:2 }} zł</td>
                 <td>{{ kategoria.saldo|floatformat:2 }} zł</td>
@@ -390,26 +387,23 @@ a.menu-title {
             </tr>
     
             {% for tranzakcja in kategoria.tranzakcje.all %}
-            <tr class="subcategories tranzakcja-{{ tranzakcja.id }} {% if kategoria.zysk %} income-row {% else %} expense-category {% endif %}" 
-                id="subcategories-{{ kategoria.id }}" 
+            <tr class="subcategories subcategories-{{ kategoria.id }} tranzakcja-{{ tranzakcja.id }} {% if kategoria.zysk %} income-row {% else %} expense-category {% endif %}" 
                 data-month="{{ tranzakcja.miesiac }}" style="display: none;">
-                <td>{{ tranzakcja.nazwa }} 
-                  
-                    
-                </td>
+                <td>{{ tranzakcja.nazwa }}</td>
                 <td>{{ tranzakcja.plan|floatformat:2 }} zł</td>
                 <td>
                     <span class="realization">{{ tranzakcja.realizacja|floatformat:2 }} zł</span>
                     <button onclick="updateRealization('{{ tranzakcja.id }}', '{{ tranzakcja.plan }}')" class="update-button">✔️</button>
                 </td>
                 <td>{{ tranzakcja.saldo|floatformat:2 }} zł</td>
-                <td>  <a href="{% url 'edytuj_podkategorie' tranzakcja.id %}">Edytuj</a>
+                <td>
+                    <a href="{% url 'edytuj_podkategorie' tranzakcja.id %}">Edytuj</a>
                     <a href="{% url 'usun_podkategorie' tranzakcja.id %}" class="delete-link" onclick="return confirm('Czy na pewno chcesz usunąć tę podkategorię?')">Usuń</a>
                 </td>
             </tr>
             {% empty %}
-            <tr class="subcategories" id="subcategories-{{ kategoria.id }}" style="display: none;">
-                <td colspan="4">Brak podkategorii</td>
+            <tr class="subcategories subcategories-{{ kategoria.id }}" style="display: none;">
+                <td colspan="5">Brak podkategorii</td>
             </tr>
             {% endfor %}
             {% endfor %}
@@ -688,19 +682,26 @@ var pieChart3 = new Chart(ctx3, {
                 }
             });
         }
-         // Funkcja do rozwijania i zwijania podkategorii
-    function toggleSubcategories(categoryId) {
-        var subcategories = document.getElementById('subcategories-' + categoryId);
-        var arrow = event.target.querySelector('.arrow');
-
-        if (subcategories.style.display === "none" || subcategories.style.display === "") {
-            subcategories.style.display = "table-row"; // Pokazuje podkategorie
-            arrow.textContent = "▲"; // Zmienia strzałkę na górę
-        } else {
-            subcategories.style.display = "none"; // Ukrywa podkategorie
-            arrow.textContent = "▼"; // Zmienia strzałkę na dół
+        function toggleSubcategories(categoryId) {
+            // Select all rows with the class that includes the category ID
+            var subcategoryRows = document.querySelectorAll('.subcategories-' + categoryId);
+            var arrow = event.target.querySelector('.arrow');
+        
+            // Check if rows are currently hidden or shown by examining the display property of the first row
+            if (subcategoryRows[0].style.display === "none" || subcategoryRows[0].style.display === "") {
+                // Show all subcategory rows for this category
+                subcategoryRows.forEach(row => {
+                    row.style.display = "table-row";
+                });
+                arrow.textContent = "▲"; // Change arrow to point up
+            } else {
+                // Hide all subcategory rows for this category
+                subcategoryRows.forEach(row => {
+                    row.style.display = "none";
+                });
+                arrow.textContent = "▼"; // Change arrow to point down
+            }
         }
-    }
     function updateRealization(tranzakcjaId, planValue) {
         const plan = parseFloat(planValue);
         
